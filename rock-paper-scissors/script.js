@@ -49,9 +49,10 @@ function playRound(humanChoice, computerChoice) {
             playRound(human, computer);
         }
 
-        console.log("Final score:");
-        console.log("Human:", humanScore);
-        console.log("Computer:", computerScore);
+        scoreboards.textContent = 
+            "Final score:\n" +
+            "Human: " + humanScore + "\n" +
+            "Computer: " + computerScore;
 
         if (humanScore > computerScore) {
             console.log("You win the game!");
@@ -62,6 +63,17 @@ function playRound(humanChoice, computerChoice) {
         }
     }
 
-    playGame()
+    /**  playGame() это старая часть кода, которая 
+    запускала функцию playRound  **/
 
 
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        const choice = button.id;
+        playRound(choice, getComputerChoice());
+    })
+})
+
+const scoreboards = document.querySelector("#scoreboard");
