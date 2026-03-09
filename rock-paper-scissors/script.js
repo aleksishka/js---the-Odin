@@ -43,7 +43,7 @@ function playRound(humanChoice, computerChoice) {
         humanScore = 0;
         computerScore = 0;
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0:; i++) {
             const human = getHumanChoice();
             const computer = getComputerChoice();
             playRound(human, computer);
