@@ -1,6 +1,9 @@
 let humanScore = 0;
 let computerScore = 0;
 
+const scoreboards = document.querySelector("#scoreboard");
+const buttons = document.querySelectorAll("button");
+
 function getComputerChoice() {
     const random = Math.random();
 
@@ -13,16 +16,13 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    const choice = prompt("Rock, paper or scissors?");
-    return choice.toLowerCase();
-}
-
 function playRound(humanChoice, computerChoice) {
     const human = humanChoice.toLowerCase();
 
     if (human === computerChoice) {
-        console.log("It's a tie!");
+        scoreboards.textContent =
+        `It's a tie!\nHuman: ${humanScore}\nComputer: ${computerScore}`;
+        checkForWinner();
         return;
     }
 
@@ -32,42 +32,33 @@ function playRound(humanChoice, computerChoice) {
         (human === "scissors" && computerChoice === "paper")
     ) {
         humanScore++;
-        console.log(`You win! ${human} beats {computerChoice}`);
+        scoreboards.textContent =
+        `You win! ${human} beats ${computerChoice}\nHuman: ${humanScore}\nComputer: ${computerScore}`;
     } else {
         computerScore++;
-        console.log(`You lose! ${computerChoice} beats ${human}`)
+        scoreboards.textContent =
+        `You lose! ${computerChoice} beats ${human}\nHuman: ${humanScore}\nComputer: ${computerScore}`;
     }
+    checkForWinner();
     }
 
-    function playGame() {
-        humanScore = 0;
-        computerScore = 0;
-
-        for (let i = 0:; i++) {
-            const human = getHumanChoice();
-            const computer = getComputerChoice();
-            playRound(human, computer);
+    function checkForWinner() {
+        if (humanScore === 5) {
+            scoreboards.textContent = "🎉 You win the game! 🎉";
+            disableButtons();
         }
 
-        scoreboards.textContent = 
-            "Final score:\n" +
-            "Human: " + humanScore + "\n" +
-            "Computer: " + computerScore;
-
-        if (humanScore > computerScore) {
-            console.log("You win the game!");
-        } else if (humanScore < computerScore) {
-            console.log("You lose the game!");
-        } else {
-            console.log("It's a tie!")
+        if (computerScore === 5) {
+            scoreboards.textContent = "💀 Computer wins the game! 💀";
+            disableButtons();
         }
     }
 
-    /**  playGame() это старая часть кода, которая 
-    запускала функцию playRound  **/
+    function disableButtons() {
+        const buttons = document.querySelectorAll("button");
+        buttons.forEach(btn => btn.disabled = true)
+    }
 
-
-const buttons = document.querySelectorAll("button");
 
 buttons.forEach(button => {
     button.addEventListener("click", () => {
@@ -76,4 +67,4 @@ buttons.forEach(button => {
     })
 })
 
-const scoreboards = document.querySelector("#scoreboard");
+
